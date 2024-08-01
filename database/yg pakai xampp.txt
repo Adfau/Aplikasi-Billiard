@@ -1,0 +1,6 @@
+edit importDB.bat
+cari set MYSQL_PATH="C:\Program Files\MySQL\MySQL Server 8.0\bin\"
+Ubah pathnya ke folder xampp. biasanya di C:\xampp
+
+Contoh:
+set MYSQL_PATH="C:\xampp\mysql\bin"

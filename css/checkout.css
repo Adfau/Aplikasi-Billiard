@@ -1,0 +1,55 @@
+#checkoutModal .cashier-form {
+    background-color: #146569;
+    border: 1px solid #DDDDDD;
+    transition: border 0.5s ease;
+    color: #ffffff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+#checkoutModal .cashier-form label {
+    color: #ffffff;
+}
+#checkoutModal .cashier-form input {
+    margin-bottom: 10px;
+}
+#checkoutModal .cashier-form .btn {
+    background-color: #4A8A8E;
+    color: white;
+}
+#checkoutModal .fnb-table {
+    flex: 1;
+    overflow-y: auto;
+}
+#checkoutModal .fnb-table table {
+    width: 100%;
+    min-height: 50vh;
+
+}
+#checkoutModal .fnb-table .btn {
+    margin: 10px 0;
+}
+#checkoutModal .fnb-table table thead th {
+    background-color: #f8f8f8;
+}
+#checkoutModal .fnb-table table tbody, #checkoutModal .fnb-table table thead {
+    display: block;
+    max-height: 50vh; /* Adjust the height as needed */
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+}
+#checkoutModal .fnb-table table tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+#checkoutModal .fnb-table table tbody::-webkit-scrollbar, #checkoutModal .fnb-table table thead::-webkit-scrollbar {
+    width: 7px;
+}
+#checkoutModal .fnb-table table tbody::-webkit-scrollbar-thumb {
+    background-color: #888;
+}
+#checkoutModal p.span-right>span {
+  float: right;
+}

@@ -1,0 +1,124 @@
+
+body {
+    background-color: #f8f9fa;
+    background-image: url("../img/subtle-bg.jpg");
+    height: 100%;
+}
+
+
+.main-content {
+    margin-top: 50px;
+}
+
+.top-bar {
+    color: #ffffff;
+    padding: 10px 0;
+    height: 50px;
+    margin: 0 auto;
+    
+    /* background-color: #146569; */
+    background: linear-gradient(to right, #0b5d59, #146569);
+    /*
+        background-image: url('../img/billiardbg.jpg');
+        background-blend-mode: overlay;
+        background-size: cover;
+        background-position: center;
+    */
+
+    /*
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 500;
+    */
+}
+
+.logo {
+    /* Ukuran logo */
+    width: 40px;
+    height: 40px;
+    
+    /* Gambar latar belakang */
+    background-image: url("../img/billiard-ball-teal.jpg");
+    background-size: cover;
+    
+    /* Membuat logo dan bingkai menjadi bulat */
+    border-radius: 50%;
+    
+    /* Bingkai */
+    border: 2px solid #dee2e6;
+}
+
+.brand-name {
+    font-size: 1.5em;
+    margin-left: 10px;
+    font-style: italic;
+}
+
+.login-btn {
+    color: #ffffff;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.info-icon {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.info-card {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: -160px;
+    width: 200px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    z-index: 1;
+}
+
+.info-icon:hover .info-card {
+    display: block;
+}
+
+.info-icon span {
+    width: 14px;
+    height: 14px;
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 14px;
+    font-size: 12px;
+    position: absolute;
+    top: -18px;
+    left: -5px;
+}
+
+.social-icons {
+    font-size: 20px;
+    width: 15%;
+    left: 0px;
+}
+.social-icons a {
+    color: #ffffff;
+}
+.social-icons a:hover {
+    opacity: 0.7;
+}
+
+a {
+    color: #ffffff;
+    display: inline-block;
+    text-decoration: none;
+}
+
+a:hover{
+    opacity: 0.7;
+}
