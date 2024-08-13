@@ -15,7 +15,7 @@ if (!defined('INCLUDED')) {
         </div>
         -->
         <!-- <a href="https://www.vecteezy.com/free-png/billiard">Billiard PNGs by Vecteezy</a> -->
-        <a href="index"><div class="d-flex align-items-center">
+        <a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/"><div class="d-flex align-items-center">
             <div class="logo"></div>
             <span class="brand-name">Billiard</span>
         </div></a>
@@ -40,11 +40,12 @@ if (!defined('INCLUDED')) {
         <div class="dropdown-menu" aria-labelledby="accountDropdown">
             <?php if (isset($_SESSION['username'])) : ?>
                 <?php if ($_SESSION['level'] == 'ADMIN') : ?>
-                    <a class="dropdown-item" href="admin-dashboard">Administrasi</a>
+                    <a class="dropdown-item" href="<?php echo dirname($_SERVER['PHP_SELF']) . "/"; ?>admin-dashboard.php">Administrasi</a>
                 <?php endif ?>
-                <a class="dropdown-item" href="proses/logout">Logout</a>
+                <a class="dropdown-item" href="<?php echo dirname($_SERVER['PHP_SELF']) . "/"; ?>proses/sync_system.php">Sinkronisasi</a>
+                <a class="dropdown-item" href="<?php echo dirname($_SERVER['PHP_SELF']) . "/"; ?>proses/logout.php">Logout</a>
             <?php else : ?>
-                <a class="dropdown-item" href="signin">Login</a>
+                <a class="dropdown-item" href="<?php echo dirname($_SERVER['PHP_SELF']) . "/"; ?>signin.php">Login</a>
             <?php endif ?>
         </div>
     </div>

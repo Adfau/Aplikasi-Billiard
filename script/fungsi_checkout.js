@@ -138,7 +138,7 @@ function updateChange() {
     // } else {
     //     $('#checkoutForm').html('<button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Deal</button>');
     // }
-    // $('#uang_kembalian').val(uangKembalian.toLocaleString('id-ID'));
+    $('#uang_kembalian').val(uangKembalian.toLocaleString('id-ID'));
     var buttonClass = (uangKembalian < 0) ? 'btn btn-secondary disable-hover' : 'btn btn-success';
     $('#checkoutForm button[type="submit"]').attr('class', buttonClass);
     

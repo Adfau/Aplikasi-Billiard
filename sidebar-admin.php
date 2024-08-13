@@ -9,31 +9,31 @@ if (!defined('INCLUDED')) {
   <hr style="margin-top: 0px">
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
-      <a href="admin-dashboard" class="nav-link align-items-center d-flex <?php $pageType = (defined('PAGE_DASHBOARD')) ? "active active-page" : "link-dark"; echo $pageType; ?>" <?php if (defined('PAGE_DASHBOARD')) echo 'aria-current="page"'; ?>>
+      <a href="<?php echo dirname($_SERVER['PHP_SELF']) . "/"; ?>admin-dashboard.php" class="nav-link align-items-center d-flex <?php $pageType = (defined('PAGE_DASHBOARD')) ? "active active-page" : "link-dark"; echo $pageType; ?>" <?php if (defined('PAGE_DASHBOARD')) echo 'aria-current="page"'; ?>>
       <span style="min-width: 28px"><i class="fa fa-tachometer" aria-hidden="true"></i></span>
         Dashboard
       </a>
     </li>
     <li>
-      <a href="admin-account" class="nav-link align-items-center d-flex <?php $pageType = (defined('PAGE_ACCOUNT')) ? "active active-page" : "link-dark"; echo $pageType; ?>" <?php if (defined('PAGE_ACCOUNT')) echo 'aria-current="page"'; ?>>
+      <a href="<?php echo dirname($_SERVER['PHP_SELF']) . "/"; ?>admin-account.php" class="nav-link align-items-center d-flex <?php $pageType = (defined('PAGE_ACCOUNT')) ? "active active-page" : "link-dark"; echo $pageType; ?>" <?php if (defined('PAGE_ACCOUNT')) echo 'aria-current="page"'; ?>>
       <span style="min-width: 28px"><i class="fa fa-users" aria-hidden="true"></i></span>
         Akun Karyawan
       </a>
     </li>
     <li>
-      <a href="admin-settings" class="nav-link align-items-center d-flex <?php $pageType = (defined('PAGE_SETTING')) ? "active active-page" : "link-dark"; echo $pageType; ?>" <?php if (defined('PAGE_SETTING')) echo 'aria-current="page"'; ?>>
+      <a href="<?php echo dirname($_SERVER['PHP_SELF']) . "/"; ?>admin-settings.php" class="nav-link align-items-center d-flex <?php $pageType = (defined('PAGE_SETTING')) ? "active active-page" : "link-dark"; echo $pageType; ?>" <?php if (defined('PAGE_SETTING')) echo 'aria-current="page"'; ?>>
       <span style="min-width: 28px"><i class="fa fa-wrench" aria-hidden="true"></i></span>
         Setel Harga
       </a>
     </li>
     <li>
-      <a href="admin-report" class="nav-link align-items-center d-flex <?php $pageType = (defined('PAGE_REPORT')) ? "active active-page" : "link-dark"; echo $pageType; ?>" <?php if (defined('PAGE_REPORT')) echo 'aria-current="page"'; ?>>
+      <a href="<?php echo dirname($_SERVER['PHP_SELF']) . "/"; ?>admin-report.php" class="nav-link align-items-center d-flex <?php $pageType = (defined('PAGE_REPORT')) ? "active active-page" : "link-dark"; echo $pageType; ?>" <?php if (defined('PAGE_REPORT')) echo 'aria-current="page"'; ?>>
       <span style="min-width: 28px"><i class="fa fa-bar-chart" aria-hidden="true"></i></span>
         Laporan
       </a>
     </li>
     <li>
-      <a href="admin-log" class="nav-link align-items-center d-flex <?php $pageType = (defined('PAGE_LOG')) ? "active active-page" : "link-dark"; echo $pageType; ?>" <?php if (defined('PAGE_LOG')) echo 'aria-current="page"'; ?>>
+      <a href="admin-log.php" class="nav-link align-items-center d-flex <?php $pageType = (defined('PAGE_LOG')) ? "active active-page" : "link-dark"; echo $pageType; ?>" <?php if (defined('PAGE_LOG')) echo 'aria-current="page"'; ?>>
       <span style="min-width: 28px"><i class="fa fa-list" aria-hidden="true"></i></span>
         Log
       </a>

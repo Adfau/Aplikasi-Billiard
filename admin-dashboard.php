@@ -32,7 +32,7 @@ require_once('controller.php');
 function fetchBillingData($con) {
 
     // Calculate yesterday's date
-    $yesterday = date('Y-m-d', strtotime('-1 day'));
+    $yesterday = date('Y-m-d H:i:s', strtotime('-1 day'));
 
     $query = "SELECT * FROM billing_history WHERE is_paid = 1 AND deleted_at >= ?";
     $stmt = $con->prepare($query);
@@ -54,7 +54,7 @@ function fetchBillingData($con) {
 function fetchFnbData($con) {
 
     // Calculate yesterday's date
-    $yesterday = date('Y-m-d', strtotime('-1 day'));
+    $yesterday = date('Y-m-d H:i:s', strtotime('-1 day'));
 
     $query = "SELECT * FROM fnb_orders WHERE timestamp >= ?";
     $stmt = $con->prepare($query);
@@ -76,7 +76,7 @@ function fetchFnbData($con) {
 function fetchLogData($con) {
 
     // Calculate yesterday's date
-    $yesterday = date('Y-m-d', strtotime('-1 day'));
+    $yesterday = date('Y-m-d H:i:s', strtotime('-1 day'));
 
     $query = "SELECT * FROM activity_log WHERE timestamp >= ?";
     $stmt = $con->prepare($query);

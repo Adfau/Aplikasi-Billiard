@@ -65,11 +65,6 @@ if (!isset($_GET['id'])) {
         } else {
             echo "BILLING YANG DIHAPUS TIDAK OPEN.";
 
-            
-                // Koneksi Serial
-                // require_once('PhpSerial.php');
-                serialStopTable($no_meja);
-
         }
     } else {
         echo "DATA TIDAK DIDAPAT.";
@@ -87,7 +82,8 @@ if (!isset($_GET['id'])) {
             //Stop meja
             // Koneksi Serial
             // require_once('PhpSerial.php');
-            serialStopTable($no_meja);
+            // serialStopTable($no_meja);
+            // sleep(0.1);
 
             //Hapus event pada SQL
             $event_name = "delete_billing_$billing_id";
@@ -97,6 +93,15 @@ if (!isset($_GET['id'])) {
             } else {
                 echo " Error dropping event: " . $con->error;
             }
+            // Drop activate_billing event
+            $activate_event_name = "activate_billing_$billing_id";
+            $drop_activate_event_sql = "DROP EVENT IF EXISTS $activate_event_name";
+            if ($con->query($drop_activate_event_sql) === TRUE) {
+                echo "Activate event dropped successfully.";
+            } else {
+                echo "Error dropping activate event: " . $con->error;
+            }
+
 
             //Log
             $textHarga = number_format($harga,0,",",".");
