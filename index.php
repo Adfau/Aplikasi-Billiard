@@ -146,7 +146,8 @@ $targets = array();
                                         // $harga = $hoursPassed * getHarga();
 
                                         $minutesPassed = floor((time() - $startTime) / (60));
-                                        $harga = floor(($minutesPassed * getHarga()) / 60);
+                                        //$harga = ceil(($minutesPassed * getHarga()) / 60);
+                                        $harga = ceil(($minutesPassed * $hargaPerJam) / 60);
                                     } else {
                                         // Berikan warna hitam untuk menandakan bug.
                                         $color = "black";
@@ -219,8 +220,9 @@ $targets = array();
                                                 <?php echo $text; ?>
                                             </div>
                                         </h4>
-                                        <div >
-                                            <button class="circle-btn" onclick="showCustomContextMenu(event.clientX, event.clientY, <?php echo $no_meja ?>, '<?php echo $type ?>')"><i class="fas fa-ellipsis-v"></i></button>
+                                        <div>
+                                            <?php if ($type == "ON") {$oldData = fetchDataHistory($con, $no_meja); $prevId = $oldData['billing_id'];} ?>
+                                            <button class="circle-btn" onclick="showCustomContextMenu(event.clientX, event.clientY, <?php echo $no_meja ?>, '<?php echo $type ?>'<?php if ($type == 'ON') echo ', ' . $prevId ?>)"><i class="fas fa-ellipsis-v"></i></button>
                                         </div>
                                 </div>
                                 <div class="card-body">
@@ -234,7 +236,7 @@ $targets = array();
                                         <h6 <?php if ($type === "ON") echo 'id=hargaOpen' . $no_meja . ' ' ?>style="margin-bottom: 0px;">Rp. <?php echo $harga ?></h6>
                                         <?php if ($hargaPerJam !== NULL) {
                                             $textHargaPerJam = number_format($hargaPerJam,0,",",".");
-                                            $hargaPerMenit = number_format(floor($hargaPerJam / 60),0,",",".");
+                                            $hargaPerMenit = number_format(ceil($hargaPerJam / 60),0,",",".");
                                             echo '<small class="text-muted" style="margin-bottom: 0px; font-size: 12px;">('.$textHargaPerJam.'/jam, ~'.$hargaPerMenit.'/menit)</small>';
                                         } ?>
                                     </div>
@@ -305,7 +307,7 @@ $targets = array();
                     $jsCode .= "if (targetStatus === 'OPEN') {";
                         $jsCode .= "timeDiff = Math.abs(timeDiff);";
                         $jsCode .= "textWaktu = '[OPEN] ';";
-                        $jsCode .= "if (timeDiff % 60 == 0) document.getElementById(targetHargaId).textContent = 'Rp. ' + formatHarga(timeDiff, targetHarga);";
+                        $jsCode .= "if (timeDiff % 60 <= 0) document.getElementById(targetHargaId).textContent = 'Rp. ' + formatHarga(timeDiff, targetHarga);";
                     $jsCode .= "} else {";
                         $jsCode .= "textWaktu = (targetStatus === 'RESERVED') ? 'Mulai: ' : 'Sisa Waktu: ';";
                         // Check if time is reached
@@ -477,7 +479,8 @@ $targets = array();
             });
 
             //Set modal title and form action URL based on the button clicked
-            $('.receiptButton').click(function() {
+            //$('.receiptButton').click(function() {
+            $(document).on('click', '.receiptButton', function() {
                 pauseReloadTimer();
                 var tableId = $(this).data('receipt-id');
                 var billingId = $(this).data('billing-id');
@@ -543,7 +546,7 @@ $targets = array();
         });
 
         // Function to show custom context menu
-        function showCustomContextMenu(x, y, linkId, linkType) {
+        function showCustomContextMenu(x, y, linkId, linkType, previousId = 0) {
 
             // Remove any existing context menus
             var existingContextMenu = document.getElementById("customContextMenu");
@@ -685,7 +688,7 @@ $targets = array();
             // Calculate the price based on the total number of minutes
             var hargaPerJam = 50000;
             <?php echo 'hargaPerJam = ' . getHarga(); ?>;
-            var harga = Math.floor((totalMinutes * hargaPerJam) / 60);
+            var harga = Math.ceil((totalMinutes * hargaPerJam) / 60);
 
             // Set the calculated price to the harga input field
             $('#harga').val(harga);

@@ -5,7 +5,6 @@ session_start();
 
 if (!isset($_GET['id'])) {
     header("Location: ../index.php");
-    mysqli_close($con);
     exit();
 }
 
@@ -52,6 +51,17 @@ function revertFormat($formattedRupiah) {
     
     // Convert back to integer
     return (int) $unformatted;
+}
+function customMultiplication($n) { // 6 6 6 6 5
+    $result = 0;
+    for ($i = 1; $i <= $n; $i++) {
+        if ($i % 10 == 0) {
+            $result += 5;
+        } else {
+            $result += 6;
+        }
+    }
+    return $result;
 }
 
 // Fetch Billing Data
@@ -122,7 +132,8 @@ $base_height = 136;
 if (!empty($items)) {
     $base_height = 159;
     $item_count = count($items);
-    $pdf_height = $base_height + (6 * ($item_count - 1));
+    // $pdf_height = $base_height + (6 * ($item_count - 1));
+    $pdf_height = $base_height + customMultiplication($item_count - 1);
 } else {
     $pdf_height = $base_height;
 }

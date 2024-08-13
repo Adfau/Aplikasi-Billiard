@@ -131,6 +131,12 @@
   $(document).ready(function(){
     var deletedItems = [];
 
+    // Event listener for when the modal is closed
+    $('#cashierModal').on('hidden.bs.modal', function (e) {
+      // Reset the deletedItems array
+      deletedItems = [];
+    });
+
     $('.cashierButton').click(function() {
       var billingId = $(this).data('billing-id');
       var tableId = $(this).data('table-id');
@@ -174,14 +180,15 @@
   
       var items = [];
       $('#itemsTable tbody tr').each(function() {
-          var item = {
-              id_order: ++lastId,
-              nama_fnb: $(this).find('td:eq(0)').text(),
-              harga_fnb: $(this).find('td:eq(1)').text().replace(/\./g, ''),
-              jumlah_fnb: $(this).find('td:eq(2)').text(),
-              total_fnb: $(this).find('td:eq(3)').text().replace(/\./g, '')
-          };
-          items.push(item);
+        var id = $(this).data('id'); // Get the id from the data-id attribute
+        var item = {
+            id_order: id || '', // Use id if available, otherwise set to empty string
+            nama_fnb: $(this).find('td:eq(0)').text(),
+            harga_fnb: $(this).find('td:eq(1)').text().replace(/\./g, ''),
+            jumlah_fnb: $(this).find('td:eq(2)').text(),
+            total_fnb: $(this).find('td:eq(3)').text().replace(/\./g, '')
+        };
+        items.push(item);
       });
   
       $.ajax({
@@ -190,8 +197,40 @@
         data: { billing_id: billingId, items: items, deleted_items: deletedItems },
         success: function(response) {
             // Handle success response
-            alert('Item telah disimpan');
+            
             deletedItems = []; // Clear the deleted items array after saving
+
+            //$('#saveCashierItems').data('billing-id', billingId);
+            //$('#cashierModalNumber').html('<div class="card-title numbered-box signature-box">' + formatId + '</div>');
+
+            // Fetch items for the billingId
+            $.ajax({
+                url: '/SistemBilliard/proses/get_fnb_orders.php',
+                method: 'GET',
+                data: { billing_id: billingId },
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    var items = data.items;
+                    var lastId = data.lastId;
+    
+                    // Update the items table
+                    var rows = '';
+                    items.forEach(function(item) {
+                        rows += `<tr class="prevent-select" data-id="${item.id_order}">
+                                    <td>${item.nama_fnb}</td>
+                                    <td style="width: 20%;">${parseInt(item.harga_fnb).toLocaleString('id-ID')}</td>
+                                    <td style="width: 10%;">${item.jumlah_fnb}</td>
+                                    <td style="width: 20%;">${parseInt(item.total_fnb).toLocaleString('id-ID')}</td>
+                                  </tr>`;
+                    });
+                    $('#itemsTable tbody').html(rows);
+    
+                    // Store the lastId for new items
+                    $('#cashierModal').data('last-id', lastId);
+                }
+            });
+
+            alert('Item telah disimpan');
         }
       });
 

@@ -405,7 +405,7 @@ define('PAGE_REPORT', true);
                                 </div>
                             </div>
 
-                            <button id="exportButton" class="btn btn-success mt-4">Export to Excel</button>
+                            <!-- <button id="exportButton" class="btn btn-success mt-4">Export to Excel</button> -->
                             <div style="margin-bottom: 20px;"></div>
                         </div>
                     </div>
@@ -538,30 +538,55 @@ define('PAGE_REPORT', true);
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        async function fetchData() {
+            const response = await fetch('proses/get_data_sales_all.php'); // Update with the correct path to your PHP script
+            const data = await response.json();
+            return data;
+        }
+
+        function aggregateMonthlyData(data, key) {
+            const monthlyData = {};
+            data.forEach(item => {
+                const date = new Date(item.timestamp);
+                const month = date.toLocaleString('default', { month: 'short' });
+                if (!monthlyData[month]) {
+                    monthlyData[month] = 0;
+                }
+                monthlyData[month] += parseFloat(item[key]);
+            });
+            return monthlyData;
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const data = await fetchData();
+
+            const billingData = aggregateMonthlyData(data.billingData, 'harga');
+            const fnbData = aggregateMonthlyData(data.fnbData, 'total_fnb');
+
+            const labels = Object.keys(billingData);
+            const billingValues = Object.values(billingData);
+            const fnbValues = Object.values(fnbData);
+
             const ctxCombo = document.getElementById('comboChart').getContext('2d');
 
-            const comboChart = new Chart(ctxCombo, {
+            new Chart(ctxCombo, {
                 type: 'bar',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    labels: labels,
                     datasets: [
                         {
-                            type: 'bar',
-                            label: 'Penjualan Bulanan (Bar)',
-                            data: [12000, 15000, 8000, 18000, 20000, 15000],
+                            label: 'Billing Data',
+                            data: billingValues,
                             backgroundColor: 'rgba(153, 102, 255, 0.2)',
                             borderColor: 'rgba(153, 102, 255, 1)',
                             borderWidth: 1
                         },
                         {
-                            type: 'line',
-                            label: 'Penjualan Bulanan (Line)',
-                            data: [12000, 15000, 8000, 18000, 20000, 15000],
+                            label: 'FnB Data',
+                            data: fnbValues,
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                             borderColor: 'rgba(75, 192, 192, 1)',
-                            borderWidth: 1,
-                            fill: false
+                            borderWidth: 1
                         }
                     ]
                 },
@@ -570,7 +595,7 @@ define('PAGE_REPORT', true);
                         y: {
                             beginAtZero: true,
                             ticks: {
-                                callback: function(value, index, values) {
+                                callback: function(value) {
                                     return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value);
                                 }
                             }

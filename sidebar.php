@@ -19,4 +19,29 @@ if (!defined('INCLUDED')) {
         <p>&copy; 2024 - Aditya Prasetyo Yogatama</p>
     </div>
 </div>
+<script>
+        //Sidebar
+        $(document).ready(function(){
+            // Sidebar toggle functionality
+            $('.sidebar-toggle').hover(
+                function() {
+                    $('.sidebar').addClass('show'); // Show sidebar on hover
+                },
+                function() {
+                    $('.sidebar').removeClass('show'); // Hide sidebar when not hovered
+                }
+            );
+        });
+
+        function openNav() {
+        document.getElementById("sidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+        document.getElementById("sidebar").style.width = "50px";
+        document.getElementById("main").style.marginLeft = "0";
+        document.getElementById("openNav").style.display = "block";
+        }
+</script>
 -->

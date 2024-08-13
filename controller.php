@@ -1,23 +1,32 @@
 <?php
 
 function sendToDaemon($message) {
-    $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-    if ($socket === false) {
-        echo "socket_create() failed: " . socket_strerror(socket_last_error()) . "\n";
-        return;
-    }
+    try {
+        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        if ($socket === false) {
+            echo "socket_create() failed: " . socket_strerror(socket_last_error()) . "\n";
+            return;
+        }
 
-    $result = socket_connect($socket, 'localhost', 65432);
-    if ($result === false) {
-        echo "socket_connect() failed: " . socket_strerror(socket_last_error($socket)) . "\n";
-        return;
-    }
+        $result = socket_connect($socket, 'localhost', 65432);
+        if ($result === false) {
+            echo "socket_connect() failed: " . socket_strerror(socket_last_error($socket)) . "\n";
+            return;
+        }
 
-    socket_write($socket, $message, strlen($message));
-    socket_close($socket);
+        socket_write($socket, $message, strlen($message));
+        socket_close($socket);
+
+        usleep(100000);
+        
+    } catch (Exception $e) {
+        // Handle the exception and output the error message
+        echo "Error: " . $e->getMessage() . "\n";
+    }
 }
 
 function serialSetTable($table, $duration = "00:00:00") {
+
     $sendMsg = "set $table $duration";
     sendToDaemon($sendMsg);
 }
@@ -138,5 +147,26 @@ function logActivity($con, $id_user, $deskripsi, $type, $id_billing = null) {
 
     $stmt->close();
 }
+
+function baseUrl() {
+    // Get the full path to the current script
+    $scriptPath = $_SERVER['PHP_SELF'];
+
+    // Find the second occurrence of '/'
+    $position = strpos($scriptPath, '/', 1);
+
+    // If there is a second '/', trim the path up to that point
+    if ($position !== false) {
+        $baseDir = substr($scriptPath, 0, $position);
+    } else {
+        $baseDir = $scriptPath; // In case there's no second '/', return the full path
+    }
+
+    // Normalize the base directory to ensure it ends with a slash
+    $baseDir = rtrim($baseDir, '/') . '/';
+
+    return $baseDir;
+}
+
 
 ?>
