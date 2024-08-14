@@ -147,7 +147,7 @@
 
       // Fetch items for the billingId
       $.ajax({
-          url: '/SistemBilliard/proses/get_fnb_orders.php',
+          url: 'proses/get_fnb_orders.php',
           method: 'GET',
           data: { billing_id: billingId },
           success: function(response) {
@@ -196,7 +196,7 @@
       });
   
       $.ajax({
-        url: '/SistemBilliard/proses/save_fnb_orders.php',
+        url: 'proses/save_fnb_orders.php',
         method: 'POST',
         data: { billing_id: billingId, items: items, deleted_items: deletedItems },
         success: function(response) {
@@ -209,7 +209,7 @@
 
             // Fetch items for the billingId
             $.ajax({
-                url: '/SistemBilliard/proses/get_fnb_orders.php',
+                url: 'proses/get_fnb_orders.php',
                 method: 'GET',
                 data: { billing_id: billingId },
                 success: function(response) {
@@ -319,7 +319,7 @@
     $('#searchProduct').on('input', function() {
       var query = $(this).val();
       $.ajax({
-        url: '/SistemBilliard/proses/cari_fnb.php',
+        url: 'proses/cari_fnb.php',
         method: 'GET',
         data: { search: query },
         success: function(response) {
