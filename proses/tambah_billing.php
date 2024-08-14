@@ -229,7 +229,7 @@ if (isset($_GET['id'])) {
     
         // If no numbers found, return NULL
         if (empty($numbers)) {
-            return NULL;
+            return '';
         }
         $length = strlen($numbers);
         if ($length == 1) $numbers = '0' . $numbers;
