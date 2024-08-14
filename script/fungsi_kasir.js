@@ -157,6 +157,7 @@
 
               // Update the items table
               var rows = '';
+              var total = 0;
               items.forEach(function(item) {
                   rows += `<tr class="prevent-select" data-id="${item.id_order}">
                               <td>${item.nama_fnb}</td>
@@ -164,8 +165,11 @@
                               <td style="width: 10%;">${item.jumlah_fnb}</td>
                               <td style="width: 20%;">${parseInt(item.total_fnb).toLocaleString('id-ID')}</td>
                             </tr>`;
+                            var subtotal = parseFloat(item.total_fnb);
+                            total += subtotal;
               });
               $('#itemsTable tbody').html(rows);
+              $('#totalAmount').text(total.toLocaleString('id-ID'));
 
               // Store the lastId for new items
               $('#cashierModal').data('last-id', lastId);
@@ -229,7 +233,7 @@
                     $('#cashierModal').data('last-id', lastId);
                 }
             });
-
+            updateTotal();
             alert('Item telah disimpan');
         }
       });
