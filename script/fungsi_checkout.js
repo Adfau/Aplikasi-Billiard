@@ -35,7 +35,7 @@ $(document).ready(function() {
       billingDataPaket = "Weekend";
     }
     $.ajax({
-        url: '/SistemBilliard/proses/get_data_billing_history.php',
+        url: 'proses/get_data_billing_history.php',
         type: 'POST',
         data: { billing_id: billingId },
         dataType: 'json',
@@ -56,7 +56,7 @@ $(document).ready(function() {
 
                 // AJAX request to get fnb orders data
                 $.ajax({
-                    url: '/SistemBilliard/proses/get_fnb_orders.php',
+                    url: 'proses/get_fnb_orders.php',
                     type: 'GET',
                     data: { billing_id: billingId },
                     dataType: 'json',
