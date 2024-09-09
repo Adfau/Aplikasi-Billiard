@@ -220,10 +220,6 @@ $targets = array();
                                                 <?php echo $text; ?>
                                             </div>
                                         </h4>
-                                        <div>
-                                            <?php if ($type == "ON") {$oldData = fetchDataHistory($con, $no_meja); $prevId = $oldData['billing_id'];} ?>
-                                            <button class="circle-btn" onclick="showCustomContextMenu(event.clientX, event.clientY, <?php echo $no_meja ?>, '<?php echo $type ?>'<?php if ($type == 'ON') echo ', ' . $prevId ?>)"><i class="fas fa-ellipsis-v"></i></button>
-                                        </div>
                                 </div>
                                 <div class="card-body">
 
