@@ -77,7 +77,7 @@ function timeToSeconds($timeString) {
 
 $servername = "localhost";
 $username = "root";
-$password = "Per-sepulchra";
+$password = "";
 $dbname = "db_billiard";
 
 $con = new mysqli($servername, $username, $password, $dbname);
